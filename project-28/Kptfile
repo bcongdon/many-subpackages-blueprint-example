@@ -1,0 +1,21 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: vpc-host-prod
+  annotations:
+    blueprints.cloud.google.com/title: Onboarding project blueprint
+upstream:
+  type: git
+  git:
+    repo: https://github.com/GoogleCloudPlatform/blueprints
+    directory: /catalog/project
+    ref: hotfix/co
+  updateStrategy: resource-merge
+pipeline:
+  mutators:
+  - image: gcr.io/kpt-fn/apply-setters:v0.1
+    configPath: setters.yaml
+info:
+  description: ' A project and a project namespace in which to manage project resources
+    with Config Connector.'
+
